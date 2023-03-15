@@ -23,6 +23,10 @@ file_list = [
     "/wedatasphere/install/dss_linkis/linkis/sbin/common.sh",
     "/wedatasphere/install/dss_linkis/linkis/conf/linkis.properties",
     "/wedatasphere/install/dss_linkis/linkis/conf/linkis-ps-publicservice.properties",
+    "/wedatasphere/install/dss_linkis/web/config.sh",
+    "/wedatasphere/install/schedulis/schedulis_0.7.1_exec/plugins/jobtypes/linkis/plugin.properties",
+    "/wedatasphere/install/schedulis/schedulis_0.7.1_exec/plugins/jobtypes/linkis/bin/config.sh",
+    "/wedatasphere/install/schedulis/schedulis_0.7.1_exec/conf/host.properties",
     "/etc/nginx/conf.d/dss.conf",
     "/etc/nginx/conf.d/exchangis.conf",
     "/etc/nginx/conf.d/streamis.conf"
@@ -74,7 +78,7 @@ def read_file_sh(ip):
             hostname = socket.gethostname()
             res = file_data.replace("dss.node.cn", hostname)
             file_write(read_path, res)
-        if read_path.endswith("config.sh"):
+        if read_path.endswith("conf/config.sh"):
             update_hive_metastore(read_path)
         file_data = file_read(read_path)
         res = file_data.replace("172.17.0.5", ip)
@@ -112,23 +116,16 @@ def update_hive_metastore(file_path):
 def read_file_pro(ip):
     for pro_file in pro_file_list:
         if not pro_file.endswith("linkis-ps-publicservice.properties"):
+            if pro_file.endswith("host.properties"):
+                hostname = socket.gethostname()
+                file_data = file_read(pro_file)
+                res = file_data.replace("dss.node.cn", hostname)
+                file_write(pro_file, res)
             file_data = file_read(pro_file)
             res = file_data.replace("172.17.0.5", ip).replace("172.16.13.131", ip)
             file_write(pro_file, res)
         else:
             update_hive_metastore(pro_file)
-            # config = configparser.ConfigParser()
-            # config.read_file(open('/wedatasphere/docker/conf/conf.ini', encoding="utf-8-sig"))
-            #
-            # host = config.get("hiveMetaData", "hive.meta.host")
-            # db = config.get("hiveMetaData", "hive.meta.db")
-            # username = config.get("hiveMetaData", "hive.meta.user")
-            # pwd = config.get("hiveMetaData", "hive.meta.password")
-            #
-            # file_data = file_read(pro_file)
-            # res = file_data.replace("UserHive", username).replace("123456789", pwd).replace("HiveMetastore", db). \
-            #     replace("172.16.13.224", host)
-            # file_write(pro_file, res)
 
 
 def run():
