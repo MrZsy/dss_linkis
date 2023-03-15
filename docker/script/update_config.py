@@ -50,6 +50,7 @@ def get_host_ip():
     hostname = socket.gethostname()
     # 获取本机IP
     ip = socket.gethostbyname(hostname)
+    # ip = os.getenv("HOST_IP")
     return ip
 
 

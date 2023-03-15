@@ -8,7 +8,7 @@
 @Author  :   Zsy
 @Version :   1.0
 """
-
+import os
 import pymysql
 import parse_yarn_ip
 
@@ -28,7 +28,8 @@ def get_host_ip():
     # 获取计算机名称
     hostname = socket.gethostname()
     # 获取本机IP
-    ip = socket.gethostbyname(hostname)
+    ip = os.getenv("HOST_IP")
+    # ip = socket.gethostbyname(hostname)
     return ip
 
 
