@@ -28,8 +28,8 @@ def get_host_ip():
     # 获取计算机名称
     hostname = socket.gethostname()
     # 获取本机IP
-    ip = os.getenv("HOST_IP")
-    # ip = socket.gethostbyname(hostname)
+    # ip = os.getenv("HOST_IP")
+    ip = socket.gethostbyname(hostname)
     return ip
 
 
@@ -54,13 +54,13 @@ def update_ip(ip):
                 url = data.get("url")
                 home_page_url = data.get("homepage_uri")
                 if url and old_ip in url:
-                    url = url.replace(old_ip, ip)
+                    url = url.replace(old_ip, os.getenv("HOST_IP"))
                     idx = data.get("id")
                     update_sql = f"update dss_server.{table} set url = '{url}'  where id ={idx};"
                     cursor.execute(update_sql)
                     db_conn.commit()
                 if home_page_url and old_ip in home_page_url:
-                    url = home_page_url.replace(old_ip, ip)
+                    url = home_page_url.replace(old_ip, os.getenv("HOST_IP"))
                     idx = data.get("id")
                     update_sql = f"update dss_server.{table} set homepage_uri = '{url}'  where id = {idx};"
                     cursor.execute(update_sql)

@@ -1,4 +1,4 @@
-FROM harbor.233bigdata.cn/dss_linkis/dss_linkis:dss_linkis_v10
+FROM harbor.233bigdata.cn/dss_linkis/dss_linkis:dss_linkis_v25
 
 RUN pip3 install --no-cache-dir -r /wedatasphere/docker/conf/requirements.txt -i  \
     http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
