@@ -1,6 +1,7 @@
 # 启动容器
 docker run  --name dss_linkis_server_v1 \
 -h dss.node.cn \
+-e HOST_IP=172.16.13.133 \
 -v /opt/cloudera/parcels/CDH:/wedatasphere/cdh \
 -v /usr/local/service/spark3:/wedatasphere/service/spark3 \
 -v /opt/cloudera/parcels/FLINK:/wedatasphere/service/flink \
