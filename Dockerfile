@@ -8,9 +8,8 @@ RUN pip3 install --no-cache-dir -r /wedatasphere/docker/conf/requirements.txt -i
 COPY ./docker /wedatasphere/docker/
 COPY ./sbin /wedatasphere/sbin/
 
-RUN chown -R hdfs:hdfs /wedatasphere
+RUN chown -R hdfs:hdfs /wedatasphere && chmod +x /wedatasphere/docker/script/run.sh
 
-RUN chmod +x /wedatasphere/docker/script/run.sh
 WORKDIR /wedatasphere
 
 CMD ["/bin/bash", "/wedatasphere/docker/script/run.sh"]
